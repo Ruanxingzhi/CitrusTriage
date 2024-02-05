@@ -1,0 +1,20 @@
+{% extends "project/base.html" %}
+
+{% set title = g.project.name %}
+
+{% block right %}
+
+
+<form method="post" enctype="multipart/form-data">
+    <label>SQLite 文件：</label>
+    <input type="file" name="file" required>
+    <br>
+    <button type="submit">导入</button>
+</form>
+
+
+<div class="space"></div>
+
+{% include "util/crash_table.html" %}
+
+{% endblock %}

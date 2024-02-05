@@ -1,0 +1,96 @@
+{% extends "project/base.html" %}
+
+{% set title = g.bug.title %}
+
+{% block right %}
+
+
+<style>
+    input {
+      width: 100%;
+      margin-bottom: 16px;
+    }
+</style>
+
+
+<div style="display:flex;">
+    <div>
+        <form method="post" style="width: 55rem; padding-right: 2rem;">
+            <label>标题：</label>
+            <input type="text" name="title" value="{{g.bug.title}}"><br>
+            
+            <label>SQL：</label>
+            <input type="text" name="crash_filter" value="{{g.bug.crash_filter}}"><br>
+            
+            <button type="submit">更新</button>
+        </form>
+    </div>
+    
+    <div style="flex: 1;border-left: 1px solid rgba(120, 125, 123, 0.6);display: flex; justify-content: center;flex-direction: column;">
+        <div style="display: flex; justify-content: center;flex-direction: column; padding-left: 1rem;">
+            <p>
+                CVE 描述：{{g.bug.cve_description or '-'}}
+            </p>
+    
+            <p><a href="{{url_for('bug.edit_cve', bid=g.bug.id)}}">[修改bug信息]</a>
+
+                <a href="javascript:remove()">[删除此漏洞]</a>
+            
+            
+                <script>
+                    function remove() {
+                        const url = `{{url_for('bug.delete_bug', bid=g.bug.id)}}`;
+                        if(confirm('确认删除漏洞？')) {
+                            window.location.href = url;
+                        }
+                    }
+                </script>
+                
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<div class="space"></div>
+
+
+（关联路径数量：{{g.trace_list | length}} ）
+
+
+<table>
+    <colgroup>
+        <col style="width: 8rem;">
+        <col style="width: 75rem;">
+    </colgroup>
+    <thead>
+      <tr>
+          <th>文件名</th>
+          <th>执行路径</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in g.trace_list %}
+      <tr>
+        <td>{{c.origin_filename}}</td>
+        <td>{{c.trace}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+</table>
+
+<div class="space"></div>
+
+（关联用例数量：{{g.bug.cache_crash_cnt}}）
+<a href="{{url_for('bug.detail', bid=g.bug.id, page=((g.page-1, 1) | max))}}"><</a>
+第 {{g.page}} / {{g.total_page}} 页
+<a href="{{url_for('bug.detail', bid=g.bug.id, page=((g.page+1, g.total_page) | min))}}">></a>
+
+
+<div class="space"></div>
+
+
+{% include "util/crash_table.html" %}
+
+
+{% endblock %}

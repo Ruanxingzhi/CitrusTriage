@@ -1,0 +1,12 @@
+{% extends "project/base.html" %}
+
+{% set title = g.project.name %}
+
+
+{% block right %}
+
+<p>未分类用例：{{g.project.cache_unclassified_cnt}}</p>
+
+{% include "util/crash_table.html" %}
+
+{% endblock %}

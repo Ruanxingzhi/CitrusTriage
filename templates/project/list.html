@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block left %}
+    <b>本站现有：</b>
+    <ul style="padding-left: 1rem; margin-top: 0;">
+        <li>{{g.site_info.project_cnt}} 个项目</li>
+        <li>{{g.site_info.bug_cnt}} 个漏洞</li>
+        <li>{{g.site_info.crash_cnt}} 个用例</li>
+    </ul>
+{% endblock %}
+
+
+{% block right %}
+    <div style="padding-bottom: 1rem;">
+        <a href="{{url_for('project.add_project')}}">[添加项目]</a>
+    </div>
+
+
+    <table>
+        <colgroup>
+            <col style="width: 2rem;">
+            <col style="width: 15rem;">
+            <col style="width: 10rem;">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>项目名</th>
+            <th>创建时间</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in g.project_list %}
+          <tr>
+            <td>{{p.id}}</td>
+            <td><a href="{{url_for('project.detail', pid=p.id)}}">{{p.name}}</a></td>
+            <td>{{p.create_time}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+{% endblock %}

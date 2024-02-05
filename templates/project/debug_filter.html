@@ -1,0 +1,65 @@
+{% extends "project/base.html" %}
+
+{% set title = '过滤器调试' %}
+
+
+{% block right %}
+
+<style>
+    input {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+</style>
+
+
+<form style="width: 50rem;">
+    <label>过滤器：</label>
+    <input type="text" name="crash_filter" value="{{request.args.crash_filter}}"><br>
+    
+    <button type="submit">测试</button>
+</form>
+
+<div class="space"></div>
+
+{% if g.crash_cnt %}
+（检索到 {{g.trace_list | length}} 条路径）
+
+
+<table>
+    <colgroup>
+        <col style="width: 8rem;">
+        <col style="width: 75rem;">
+    </colgroup>
+    <thead>
+      <tr>
+          <th>文件名</th>
+          <th>执行路径</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in g.trace_list %}
+      <tr>
+        <td>{{c.origin_filename}}</td>
+        <td>{{c.trace}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+</table>
+
+
+<div class="space"></div>
+
+
+（检索到 {{g.crash_cnt}} 个用例）
+<a href="{{url_for('project.debug_filter', pid=g.project.id, page=((g.page-1, 1) | max), crash_filter=request.args.crash_filter)}}"><</a>
+第 {{g.page}} / {{g.total_page}} 页
+<a href="{{url_for('project.debug_filter', pid=g.project.id, page=((g.page+1, g.total_page) | min), crash_filter=request.args.crash_filter)}}">></a>
+
+
+
+{% include "util/crash_table.html" %}
+
+{% endif %}
+
+{% endblock %}

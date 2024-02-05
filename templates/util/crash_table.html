@@ -1,0 +1,32 @@
+
+<style>
+    th, td {
+        font-family: monospace;
+        white-space: pre-line;
+        word-break:break-all;
+    }
+</style>
+
+<table>
+    <colgroup>
+        <col style="width: 8rem;">
+        <col style="width: 25rem;">
+        <col style="width: 50rem;">
+    </colgroup>
+    <thead>
+      <tr>
+          <th>文件名</th>
+          <th>执行路径</th>
+          <th>ASan报告</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in g.crash_list %}
+      <tr>
+        <td>{{c.origin_filename}}</td>
+        <td>{{c.trace | replace('@', '\n') | replace('->', '\n')}}</td>
+        <td>{{c.asan_report}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+</table>

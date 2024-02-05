@@ -1,0 +1,71 @@
+{% extends "project/base.html" %}
+
+{% set title = g.project.name %}
+
+
+{% block left %}
+{{super()}}
+
+<div class="divider"></div>
+<p>
+    <a href="{{url_for('project.edit', pid=g.project.id)}}">[修改项目]</a> <a href="{{url_for('project.gen_cve', pid=g.project.id)}}">[生成CVE表格]</a>
+</p>
+{% endblock %}
+
+
+{% block right %}
+
+<style>
+th, td {
+        font-family: monospace;
+        word-break:break-all;
+        padding-right: .5rem;
+        font-size: 14px;
+        white-space: pre-line;
+
+    }
+</style>
+
+漏洞数量：{{g.bug_list|length}}
+
+<a href="{{url_for('project.add_bug', pid=g.project.id)}}">[添加漏洞]</a>
+<a href="{{url_for('project.debug_filter', pid=g.project.id)}}">[过滤器调试]</a>
+<a href="{{url_for('project.jaccard_analyze', pid=g.project.id)}}">[重合度分析]</a>
+
+<div class="space"></div>
+
+    <table>
+        <colgroup>
+            <col style="width: 40rem;">
+            <col style="width: 10rem;">
+            <col style="width: 4rem;">
+            <col style="width: 4rem;">
+        </colgroup>
+        <thead>
+          <tr>
+              <th>漏洞</th>
+              <th>关联用例数</th>
+              <th>优先级</th>
+              <th>CVE描述</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for b in g.bug_list %}
+          <tr>
+            <td><a href="{{url_for('bug.detail', bid=b.id)}}">{{b.title | replace('@', '\n') }}</a></td>
+            <td>{{b.cache_crash_cnt}}</td>
+            <td>{{b.priority}}</td>
+            <td>{{'Y' if b.cve_description}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="space"></div>
+
+    <p>
+        <a href="{{url_for('project.all_crashes', pid=g.project.id)}}">[全部用例:{{g.crash_cnt}}]</a>
+        <a href="{{url_for('project.unclassified_crashes', pid=g.project.id)}}">[未分类用例:{{g.unclassified_cnt}}]</a>
+        <a href="{{url_for('project.auto_classify', pid=g.project.id)}}">[执行自动分类]</a>        
+    </p>
+{% endblock %}

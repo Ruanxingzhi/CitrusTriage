@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+
+{% block left %}
+<div style="overflow-wrap: break-word;">
+    <p>
+        <b>项目</b><br>
+        {{g.project.name}}
+    </p>
+
+    <div class="divider"></div>
+
+    
+    <p>
+        <b>产品</b><br>
+        {{g.project.cve_product or '-'}}
+    </p>
+    
+    <p>
+        <b>版本</b><br>
+        {{g.project.cve_version or '-'}}
+    </p>
+    
+    <p>
+        <b>厂商</b><br>
+        {{g.project.cve_vendor or '-'}}
+    </p>
+    
+    <p>
+        <b>漏洞发现者</b><br>
+        {{g.project.cve_credit or '-'}}
+    </p>
+    
+    <p>
+        <b>参考资料</b><br>
+        {{g.project.cve_reference or '-'}}
+    </p>
+</div>
+
+
+{% endblock %}
+

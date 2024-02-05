@@ -1,0 +1,50 @@
+{% extends "project/base.html" %}
+
+{% set title = g.bug.title %}
+
+
+{% block right %}
+
+<style>
+    input {
+      width: 100%;
+      margin-bottom: 16px;
+    }
+</style>
+
+
+
+<form method="post" style="width: 50rem;">
+    <label>优先级（0-100）：</label>
+    <input type="text" name="priority" value="{{g.bug.priority}}"><br>
+
+    <label>漏洞类型（buffer overflow，SQL injection等）：</label>
+    <input type="text" name="cve_vulnerability_type" value="{{g.bug.cve_vulnerability_type}}"><br>
+    
+    <label>攻击者类型（local，remote等）：</label>
+    <input type="text" name="cve_attack_type" value="{{g.bug.cve_attack_type}}"><br>
+    
+    <label>影响（DoS，command execution等）：</label>
+    <input type="text" name="cve_impact" value="{{g.bug.cve_impact}}"><br>
+    
+    <label>相关组件（文件，函数等）：</label>
+    <input type="text" name="cve_affected_component" value="{{g.bug.cve_affected_component}}"><br>
+    
+    <label>攻击向量：</label>
+    <input type="text" name="cve_attack_vector" value="{{g.bug.cve_attack_vector}}"><br>
+    
+    <label>CVE描述：</label>
+    <input type="text" name="cve_description" value="{{g.bug.cve_description}}"><br>
+    
+    <label>参考资料：</label>
+    <input type="text" name="cve_reference" value="{{g.bug.cve_reference}}"><br>
+    
+    <label>额外信息：</label>
+    <input type="text" name="cve_additional" value="{{g.bug.cve_additional}}"><br>
+
+    <button type="submit">提交</button>
+
+</form>
+
+
+{% endblock %}

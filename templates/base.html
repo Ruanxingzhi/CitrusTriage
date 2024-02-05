@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.svg">
+
+    <link rel="stylesheet" href="/static/css/site.css">
+
+    <!-- <script src="/static/js/jquery-3.7.1.min.js"></script> -->
+    <title>{{title or 'Citrus Triage'}}</title>
+</head>
+
+<body>
+
+    <div class="color-3" style="display: flex; justify-content: center; align-items: center;">
+        <div style="text-align: center;color:white;">
+            <h3 style="margin: 0;">Citrus Triage</h3>
+            <div>崩溃用例统计 & 表格生成</div>
+        </div>
+    </div>
+
+    <div class="color-2" style="display: flex;align-items: center;">
+        <p style="padding-left: 1rem;">
+            / <a href="/">Home</a>
+            {% if g.project %}
+                / <a href="{{url_for('project.detail', pid=g.project.id)}}">{{g.project.name}}</a>
+            {% endif %}
+
+            {% if g.bug %}
+                / <a href="{{url_for('bug.detail', bid=g.bug.id)}}">{{g.bug.title}}</a>
+            {% endif %}
+        </p>
+    </div>
+    <div class="color-2" style="padding: 1rem;">
+        <div>
+            {% block left %}
+            左下角内容
+            {% endblock %}
+        </div>
+    </div>
+    <div class="color-1" style="padding: 1rem;">
+        {% for err in get_flashed_messages() %}
+        <p style="color: red;">{{err}}</p>        
+        {% endfor %}
+        
+        
+        {% block right %}
+        右下角内容
+        {% endblock %}
+    </div>
+
+
+</body>
+
+</html>

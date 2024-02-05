@@ -1,0 +1,56 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 15rem 1fr;
+    /* 2列，左边10rem，右边剩余部分 */
+    grid-template-rows: 4rem 1fr;
+    /* 2行，上面5rem，下面剩余部分 */
+    height: 100vh;
+    /* 100%视口高度 */
+}
+
+.color-3 {
+    background-color: rgba(120, 125, 123, 0.9);
+}
+
+.color-2 {
+    background-color: rgba(120, 125, 123, 0.4);
+}
+
+.color-1 {
+    background-color: rgba(120, 125, 123, 0.1);
+}
+
+table {
+    border-collapse: collapse;
+    /* width: 100%; */
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    text-align: left;
+    vertical-align: top;
+}
+
+a {
+    color: #005CAF;
+    text-decoration: none;
+}
+
+a:hover {
+    color: your_hover_color;
+    text-decoration: underline;
+}
+
+
+.divider {
+    height: 1px;
+    width: 100%;
+    background-color: rgba(120, 125, 123, 0.6);
+}
+
+.space {
+    padding-top: 1rem;
+}
